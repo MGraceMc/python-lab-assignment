@@ -1,0 +1,45 @@
+#1
+dic1 = {1:10, 2:20}
+dic2 = {3:30, 4:40}
+dic3 = {5:50, 6:60}
+
+#1. Using update()
+result = {}
+for d in (dic1, dic2, dic3):
+    result.update(d)
+print("Concatendated Dictionary:", result)
+
+#2. Generate dictionay (x, x*x)
+n = 5
+square_dict = {x: x*x for x in range(1, n+1)}
+print("Square Dictionary:", square_dict)
+
+#3. Combine two dictionaries adding values for common keys
+from collections import Counter
+
+d1 = {'a': 100, 'b': 200, 'c': 300}
+d2 = {'a': 300, 'b': 200, 'd': 400}
+
+combined = Counter(d1) + Counter(d2)
+print("Combined Dictionary:", combined)
+
+#4. make_shirt() function
+def make_shirt(size, message):
+    print(f"The shirt size is {size} and the message is '{message}'.")
+
+# Calling using positional arguments
+make_shirt('Medium', 'Code is Life')
+
+# Calling using keyword arguments
+make_shirt(message= 'Hello World', size='Small')
+
+#Modification
+def make_shirt_default(size='Large', message='I love Python'):
+    print(f"The shirt size is {size} and the message is '{message}'.")
+
+#Large and medium shirts with default message
+make_shirt_default()
+make_shirt_default(size='Medium')
+
+#Shirt of any size with different message
+make_shirt_default(size='Small', message='Keep Coding!')
