@@ -1,0 +1,58 @@
+import math
+
+#Parent class
+class Shape():
+    def __init__(self):
+        pass
+
+#Rectancle Class
+class Rectangle(Shape):
+    def __init__(self):
+        self.side_lengths = [5, 4]
+        
+    # Return numer of sides (4 sides for rectangle & square)    
+    def getEdges(self): 
+        return 4
+    
+    # Computer perimeter = 2 * (length + width)
+    def computePerimeter(self): 
+        length, width = self.side_lengths
+        return 2 * (length + width)
+    
+    # Compute area = length * width
+    def computeArea(self): 
+        length, width = self.side_lengths
+        return length * width
+
+#Triangle Class
+class Triangle(Shape):
+    def __init__(self):
+        self.side_lengths = [3, 6, 7] # 3 sides of triangle
+
+    # Return number of sides (3 sides for triangle)  
+    def getEdges(self): 
+        return 3
+    
+    # Compute perimeter = a + b + c
+    def computePerimeter(self): 
+        return sum(self.side_lengths)
+    
+    # Compute area using Heron's formula
+    def computeArea(self):
+        a, b, c = self.side_lengths
+        s = (a + b + c) / 2  # semi-perimeter
+        area = math.sqrt(s * (s - a) * (s - b) * (s - c))
+        return area 
+
+# Creating objects of Rectangle and Triangle classes
+r = Rectangle()
+t = Triangle()
+
+print("Rectangle:")
+print("Edges:", r.getEdges())
+print("Perimeter:", r.computePerimeter())
+print("Area", r.computeArea())
+
+print("Edges:", t.getEdges())
+print("Perimeter:", t.computePerimeter())
+print("Area:", t.computeArea())
