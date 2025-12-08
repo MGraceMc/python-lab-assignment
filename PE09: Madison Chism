@@ -1,0 +1,67 @@
+/*Task 1: Return AddressID, City, StateProvince, and CountryRegion. Only include rows where the StateProvnce is Texas and CountryRegion is United States.*/
+SELECT 
+    AddressID,
+	City,
+	StateProvince,
+	CountryRegion
+FROM SalesLT.Address
+WHERE StateProvince ='Texas'
+  AND CountryRegion = 'United States';
+
+/*Task 2: Only include rows where the StateProvince is Washington, Texas, or Missouri*/
+SELECT 
+    AddressID,
+	City,
+	StateProvince,
+	CountryRegion
+FROM SalesLT.Address
+WHERE StateProvince IN ('Washington', 'Texas', 'Missouri')
+  AND CountryRegion = 'United States';
+
+/*Task 3: Only include customers whose last name begins with letter A*/
+SELECT 
+    CustomerID,
+	CompanyName,
+	FirstName,
+	LastName,
+	Phone
+FROM SalesLT.Customer 
+WHERE LastName LIKE 'A%';
+
+/*Task 4: Group by CountryRegion and assign a meaningful name to the COUNT() result*/
+/*Corrected*/
+
+SELECT 
+   a.CountryRegion, 
+   COUNT(*) AS CustomerCount
+FROM SalesLT.Customer c 
+JOIN SalesLT.CustomerAddress ca 
+    ON c.CustomerID = ca.CustomerID
+JOIN SalesLT.Address a 
+    ON ca.AddressID = a.AddressID
+GROUP BY a.CountryRegion;
+
+/*Modified query to sort results by city, query from Task 4 does not so this is the fix to not cause an error:*/
+/*Correct Way*/
+
+SELECT 
+   a.CountryRegion, 
+   a.City,
+   COUNT(*) AS CustomerCount
+FROM SalesLT.Customer c 
+JOIN SalesLT.CustomerAddress ca 
+    ON ca.CustomerID = ca.CustomerID
+JOIN SalesLT.Address a 
+    ON ca.AddressID = a.AddressID
+GROUP BY a.CountryRegion, a.City
+ORDER BY a.City;
+
+
+/* Questions: 
+1. What error did I get: When I attempted to sort by City while grouping only by CountryRegion, SQL Server returns an error: "Column 'SalesLT.Address.City' is invalid in the ORDER BY clause because it is not contained in either an aggregat function or the GROUP BY clause.
+This happens because I grouped only by CountryRegion, but I tried to order by a non-grouped, non-aggregated column: City.
+
+2. How to fix it? Add the City to the GROUP BY clause which can make the query legal. This is what I implemented in task 5. 
+
+3. If you add City to the GROUP BY list, how does this affect the number of groups? 
+Adding City increases the number of groups. Without the City you get one result per country, but after adding the city you now get one result per City within each CountryRegion. */
