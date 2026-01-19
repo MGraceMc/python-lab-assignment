@@ -1,0 +1,38 @@
+def negation(p):
+    return not p
+
+print("p\t-p")
+for p in [True, False]:
+    print(p, "\t", negation(p))
+
+def conjunction(p, q):
+    return p and q
+
+print("\np\ttp ^ q")
+for p in [True, False]:
+    for q in [True, False]:
+        print(p, "\t", q, "\t", conjunction(p, q))
+
+def disjunction(p, q):
+    return p or q
+
+print("\np\tq\tp v q")
+for p in [True, False]:
+    for q in [True, False]:
+        print(p, "\t", q, "\t", disjunction(p,q))
+
+print("\nTruth Table for: p v q ^ r")
+print("p\tq\tr\tResult")
+for p in [True, False]:
+    for q in [True, False]:
+        for r in [True, False]:
+            result = disjunction(p, conjunction(q, r))
+            print(p, "\t", q, "\t", r, "\t", result)
+
+print("\nTruth Table for: p v (q ^ r)")
+print("p\tq\tr\tResult")
+for p in [True, False]:
+    for q in [True, False]:
+        for r in [True, False]:
+            result = disjunction, conjunction(q, r)
+            print(p, "\t", q, "\t", r, "\t", result)
